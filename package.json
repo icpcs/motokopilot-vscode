@@ -1,0 +1,195 @@
+{
+  "name": "motoko-vscode-extension",
+  "displayName": "MotokoPilot A.I. Coding Assistant",
+  "description": "AI assisted developer tooling for the Motoko programming language.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Education",
+    "Testing",
+    "Debuggers"
+  ],
+  "keywords": [
+    "Motoko",
+    "ICP",
+    "InternetComputer",
+    "AI",
+    "OpenAI",
+    "GPT-3",
+    "GPT3",
+    "GPT"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:GPT.createDocs",
+    "onCommand:GPT.rightArrow",
+    "onCommand:GPT.acceptOption"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "GPT.createDocs",
+        "title": "Create Motoko Documentation",
+        "icon": "$(hubot)"
+      },
+      {
+        "command": "GPT.createCodeFromDocs",
+        "title": "Write Motoko Code From Selected Text",
+        "icon": "$(check)"
+      },
+      {
+        "command": "GPT.updateAPIKey",
+        "title": "Update OpenAI API Key",
+        "icon": "$(pencil)"
+      },
+      {
+        "command": "GPT.removeAPIKey",
+        "title": "Remove OpenAI API Key from secret storage",
+        "icon": "$(error)"
+      },
+      {
+        "command": "GPT.rightArrow",
+        "title": "Grey Text - Right Arrow",
+        "icon": "$(error)"
+      },
+      {
+        "command": "GPT.acceptOption",
+        "title": "Grey Text - acceptOption",
+        "icon": "$(error)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "GPT.createDocs",
+          "group": "gpt",
+          "when": "editorTextFocus "
+        },
+        {
+          "command": "GPT.createCodeFromDocs",
+          "group": "gpt",
+          "when": "editorTextFocus "
+        }
+      ]
+    },
+    "configuration": {
+      "title": "MotokoPilot",
+      "properties": {
+        "GPT.org": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "The [organization](https://beta.openai.com/account/org-settings) value from OpenAI"
+        },
+        "GPT.model": {
+          "type": "string",
+          "default": "text-davinci-003",
+          "markdownDescription": "The OpenAI [model](https://beta.openai.com/docs/models) to use for text completions"
+        },
+        "GPT.maxTokens": {
+          "type": "number",
+          "default": 250,
+          "minimum": 1,
+          "markdownDescription": "The maximum number of [tokens](https://beta.openai.com/docs/introduction/overview) for each text request to GPT"
+        },
+        "GPT.temperature": {
+          "type": "number",
+          "default": 0.3,
+          "minimum": 0,
+          "maximum": 1,
+          "markdownDescription": "The [temperature](https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature) of each text request to GPT. Must be between 0 and 1"
+        },
+        "GPT.codeModel": {
+          "type": "string",
+          "default": "code-davinci-002",
+          "markdownDescription": "The OpenAI [model](https://beta.openai.com/docs/models) to use for code completions"
+        },
+        "GPT.codeMaxTokens": {
+          "type": "number",
+          "default": 250,
+          "minimum": 1,
+          "markdownDescription": "The maximum number of [tokens](https://beta.openai.com/docs/introduction/overview) for each code request to GPT"
+        },
+        "GPT.codeTemperature": {
+          "type": "number",
+          "default": 0.1,
+          "minimum": 0,
+          "maximum": 1,
+          "markdownDescription": "The [temperature](https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature) of each code request to GPT. Must be between 0 and 1"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "GPT.createDocs",
+        "key": "alt+d",
+        "mac": "ctrl + ]",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "GPT.createCodeFromDocs",
+        "key": "alt+x",
+        "mac": "ctrl + \\",
+        "when": "editorTextFocus"
+      }
+      ,
+      {
+        "command": "GPT.rightArrow",
+        "key": "alt+right",
+        "mac": "ctrl + \\",
+        "when": "editorTextFocus"
+      }
+      ,
+      {
+        "command": "GPT.acceptOption",
+        "key": "alt+enter",
+        "mac": "ctrl + \\",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/icpcs/motokopilot-vscode.git"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.4"
+  },
+  "author": "ICPCS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/icpcs/motokopilot-vscode"
+  },
+  "homepage": "https://github.com/icpcs/motokopilot-vscode",
+  "dependencies": {
+    "openai": "^3.1.0",
+    "vsce": "^2.15.0"
+  },
+  "publisher": "ICPCS",
+  "icon": "images/avatar.jpg",
+  "galleryBanner": {
+    "color": "#D79D58"
+  }
+}
